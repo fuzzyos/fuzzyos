@@ -23,5 +23,5 @@
 		}
 	},
 	"include": ["packages/*/src/**/*", "packages/*/test/**/*", "packages/fuzzy-code/examples/**/*"],
-	"exclude": ["packages/fuzzy-web-ui/**/*", "**/dist/**"]
+	"exclude": ["packages/fuzzy-web-ui/**/*", "packages/fuzzy-vs-code/**/*", "**/dist/**"]
 }
