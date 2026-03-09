@@ -3,6 +3,34 @@
 		{
 			"name": "fuzzyos",
 			"path": "."
+		},
+		{
+			"name": "fuzzy-ai",
+			"path": "packages/fuzzy-ai"
+		},
+		{
+			"name": "fuzzy-agent",
+			"path": "packages/fuzzy-agent"
+		},
+		{
+			"name": "fuzzy-code",
+			"path": "packages/fuzzy-code"
+		},
+		{
+			"name": "fuzzy-pods",
+			"path": "packages/fuzzy-pods"
+		},
+		{
+			"name": "fuzzy-tui",
+			"path": "packages/fuzzy-tui"
+		},
+		{
+			"name": "fuzzy-web-ui",
+			"path": "packages/fuzzy-web-ui"
+		},
+		{
+			"name": "fuzzy-vs-code",
+			"path": "packages/fuzzy-vs-code"
 		}
 	],
 	"settings": {}
