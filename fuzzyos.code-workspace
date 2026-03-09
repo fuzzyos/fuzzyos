@@ -29,8 +29,8 @@
 			"path": "packages/fuzzy-web-ui"
 		},
 		{
-			"name": "fuzzy-vs-code",
-			"path": "packages/fuzzy-vs-code"
+			"name": "fuzzy-code-vsce",
+			"path": "packages/fuzzy-code-vsce"
 		}
 	],
 	"settings": {}
