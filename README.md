@@ -1,6 +1,6 @@
 # FuzzyOS
 
-> **Looking for the fuzzy coding agent?** See **[packages/fuzzy-code](packages/fuzzy-code)** for installation and usage.
+> **Looking for the fuzzy code?** See **[fuzzy-code](https://github.com/fuzzyos/fuzzy-code)** for installation and usage.
 
 Tools for building AI agents and managing LLM deployments.
 
@@ -8,13 +8,13 @@ Tools for building AI agents and managing LLM deployments.
 
 | Package | Description |
 |---------|-------------|
-| **[@fuzzyos/fuzzy-ai](packages/fuzzy-ai)** | Unified multi-provider LLM API (OpenAI, Anthropic, Google, etc.) |
-| **[@fuzzyos/fuzzy-agent](packages/fuzzy-agent)** | Agent runtime with tool calling and state management |
-| **[@fuzzyos/fuzzy-code](packages/fuzzy-code)** | Interactive code CLI |
-| **[@fuzzyos/fuzzy-code-vsce](packages/fuzzy-code-vsce)** | Visual Studio Extension for interactive code CLI |
-| **[@fuzzyos/fuzzy-tui](packages/fuzzy-tui)** | Terminal UI library with differential rendering |
-| **[@fuzzyos/fuzzy-web-ui](packages/fuzzy-web-ui)** | Web components for AI chat interfaces |
-| **[@fuzzyos/fuzzy-pods](packages/fuzzy-pods)** | CLI for managing vLLM deployments on GPU pods |
+| **[@fuzzyos/fuzzy-ai](https://github.com/fuzzyos/fuzzy-ai)** | Unified multi-provider LLM API (OpenAI, Anthropic, Google, etc.) |
+| **[@fuzzyos/fuzzy-agent](https://github.com/fuzzyos/fuzzy-agent)** | Agent runtime with tool calling and state management |
+| **[@fuzzyos/fuzzy-code](https://github.com/fuzzyos/fuzzy-code)** | Interactive code CLI |
+| **[@fuzzyos/fuzzy-code-vsce](https://github.com/fuzzyos/fuzzy-code-vsce)** | Visual Studio Extension for interactive code CLI |
+| **[@fuzzyos/fuzzy-tui](https://github.com/fuzzyos/fuzzy-tui)** | Terminal UI library with differential rendering |
+| **[@fuzzyos/fuzzy-web-ui](https://github.com/fuzzyos/fuzzy-web-ui)** | Web components for AI chat interfaces |
+| **[@fuzzyos/fuzzy-pods](https://github.com/fuzzyos/fuzzy-pods)** | CLI for managing vLLM deployments on GPU pods |
 
 ## Contributing
 
