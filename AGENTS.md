@@ -7,7 +7,7 @@ read README.md, then ask which module(s) to work on. Based on the answer, read t
 - packages/fuzzy-tui/README.md
 - packages/agent/README.md
 - packages/fuzzy-code/README.md
-- packages/mom/README.md
+- packages/fuzzy-code-vsce/README.md
 - packages/fuzzy-pods/README.md
 - packages/fuzzy-web-ui/README.md
 
