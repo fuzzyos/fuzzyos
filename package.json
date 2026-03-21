@@ -55,7 +55,6 @@
 		"fast-xml-parser": "5.3.8",
 		"gaxios": {
 			"rimraf": "6.1.2"
-		},
-		"@fuzzyos/mini-lit": "npm:@mariozechner/mini-lit@^0.2.1"
+		}
 	}
 }
