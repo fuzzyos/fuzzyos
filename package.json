@@ -46,7 +46,7 @@
 	},
 	"version": "0.2.1",
 	"dependencies": {
-		"@fuzzyos/fuzzy-code": "^0.30.2",
+		"@fuzzyos/fuzzy-code": "^0.3.1",
 		"@mariozechner/jiti": "^2.6.5",
 		"get-east-asian-width": "^1.4.0"
 	},
@@ -55,6 +55,7 @@
 		"fast-xml-parser": "5.3.8",
 		"gaxios": {
 			"rimraf": "6.1.2"
-		}
+		},
+		"@fuzzyos/mini-lit": "npm:@mariozechner/mini-lit@^0.2.1"
 	}
 }
