@@ -37,3 +37,6 @@ fuzzy-*.html
 out.html
 packages/fuzzy-code/binaries/
 todo.md
+
+# Local folder
+/local/
