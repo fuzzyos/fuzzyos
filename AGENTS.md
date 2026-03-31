@@ -17,6 +17,7 @@ read README.md, then ask which module(s) to work on. Based on the answer, read t
 - **NEVER use inline imports** - no `await import("./foo.js")`, no `import("pkg").Type` in type positions, no dynamic imports for types. Always use standard top-level imports.
 - NEVER remove or downgrade code to fix type errors from outdated dependencies; upgrade the dependency instead
 - Always ask before removing functionality or code that appears to be intentional
+- Do not preserve backward compatibility unless the user explicitly asks for it
 - Never hardcode key checks with, eg. `matchesKey(keyData, "ctrl+x")`. All keybindings must be configurable. Add default to matching object (`DEFAULT_EDITOR_KEYBINDINGS` or `DEFAULT_APP_KEYBINDINGS`)
 
 ## Commands
@@ -25,6 +26,7 @@ read README.md, then ask which module(s) to work on. Based on the answer, read t
 - NEVER run: `npm run dev`, `npm run build`, `npm test`
 - Only run specific tests if user instructs: `npx tsx ../../node_modules/vitest/dist/cli.js --run test/specific.test.ts`
 - Run tests from the package root, not the repo root.
+- If you create or modify a test file, you MUST run that test file and iterate until it passes.
 - When writing tests, run them, identify issues in either the test or implementation, and iterate until fixed.
 - NEVER commit unless user asks
 
@@ -128,14 +130,16 @@ Adding a new provider requires changes across multiple files:
 ### 2. Provider Implementation (`packages/fuzzy-ai/src/providers/`)
 Create provider file exporting:
 - `stream<Provider>()` function returning `AssistantMessageEventStream`
+- `streamSimple<Provider>()` for `SimpleStreamOptions` mapping
+- Provider-specific options interface
 - Message/tool conversion functions
 - Response parsing emitting standardized events (`text`, `tool_call`, `thinking`, `usage`, `stop`)
 
-### 3. Stream Integration (`packages/fuzzy-ai/src/stream.ts`)
-- Import provider's stream function and options type
-- Add credential detection in `getEnvApiKey()`
-- Add case in `mapOptionsForApi()` for `SimpleStreamOptions` mapping
-- Add provider to `streamFunctions` map
+### 3. Provider Exports and Lazy Registration
+- Add a package subpath export in `packages/fuzzy-ai/package.json` pointing at `./dist/providers/<provider>.js`
+- Add `export type` re-exports in `packages/fuzzy-ai/src/index.ts` for provider option types that should remain available from the root entry
+- Register the provider in `packages/fuzzy-ai/src/providers/register-builtins.ts` via lazy loader wrappers, do not statically import provider implementation modules there
+- Add credential detection in `packages/fuzzy-ai/src/env-api-keys.ts`
 
 ### 4. Model Generation (`packages/fuzzy-ai/scripts/generate-models.ts`)
 - Add logic to fetch/parse models from provider source
@@ -222,3 +226,6 @@ git pull --rebase && git push
 - Resolve conflicts in YOUR files only
 - If conflict is in a file you didn't modify, abort and ask the user
 - NEVER force push
+
+### User override
+If the user instructions conflict with rules set out here, ask for confirmation that they want to override the rules. Only then execute their instructions.
