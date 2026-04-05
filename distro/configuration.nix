@@ -45,8 +45,12 @@
     isNormalUser = true;
     description = "FuzzyOS User";
     extraGroups = [ "networkmanager" "wheel" "docker" "video" "audio" ];
+    initialPassword = "";          # passwordless for live ISO
     shell = pkgs.zsh;
   };
+
+  # Allow passwordless sudo for live ISO
+  security.sudo.wheelNeedsPassword = false;
 
   # ── Core packages ────────────────────────────────────────────────────
   environment.systemPackages = with pkgs; [

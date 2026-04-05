@@ -2,33 +2,17 @@
 { config, pkgs, lib, unstable, ... }:
 
 let
-  # Node.js runtime for fuzzy-code CLI
   nodejs = unstable.nodejs_22;
 
-  # fuzzy-code installed globally via npm
-  fuzzy-code = pkgs.stdenv.mkDerivation {
-    pname = "fuzzy-code";
-    version = "0.3.15";
-    src = pkgs.fetchurl {
-      url = "https://registry.npmjs.org/@fuzzyos/fuzzy-code/-/fuzzy-code-0.3.15.tgz";
-      # TODO: update hash after first build
-      hash = lib.fakeHash;
-    };
-    nativeBuildInputs = [ nodejs pkgs.makeWrapper ];
-    installPhase = ''
-      mkdir -p $out/lib/node_modules/@fuzzyos/fuzzy-code
-      cp -r . $out/lib/node_modules/@fuzzyos/fuzzy-code
-      mkdir -p $out/bin
-      makeWrapper ${nodejs}/bin/node $out/bin/fuzzy \
-        --add-flags "$out/lib/node_modules/@fuzzyos/fuzzy-code/dist/cli.js"
-    '';
-  };
+  fuzzy-wrapper = pkgs.writeShellScriptBin "fuzzy" ''
+    exec ${nodejs}/bin/npx -y @fuzzyos/fuzzy-code@0.3.15 "$@"
+  '';
 in
 {
   # ── Fuzzy CLI ────────────────────────────────────────────────────────
   environment.systemPackages = [
     nodejs
-    # fuzzy-code  # uncomment once hash is set
+    fuzzy-wrapper
   ];
 
   # ── Environment variables ────────────────────────────────────────────

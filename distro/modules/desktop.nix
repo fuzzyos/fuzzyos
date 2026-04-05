@@ -21,6 +21,11 @@
         command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd Hyprland";
         user = "greeter";
       };
+      # Auto-login on live ISO — boots straight into Hyprland as fuzzy
+      initial_session = {
+        command = "Hyprland";
+        user = "fuzzy";
+      };
     };
   };
 

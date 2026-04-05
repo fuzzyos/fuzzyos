@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=FuzzyOS
+Description=FuzzyOS boot splash with purple branding
+ModuleName=script
+
+[script]
+ImageDir=/etc/plymouth/themes/fuzzyos
+ScriptFile=/etc/plymouth/themes/fuzzyos/fuzzyos.script

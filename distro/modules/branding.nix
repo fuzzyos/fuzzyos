@@ -1,13 +1,24 @@
 # FuzzyOS — Branding and theming
 { config, pkgs, lib, ... }:
 
+let
+  fuzzyos-plymouth-theme = pkgs.stdenv.mkDerivation {
+    pname = "fuzzyos-plymouth-theme";
+    version = "0.1.0";
+    src = ../branding/plymouth;
+    installPhase = ''
+      mkdir -p $out/share/plymouth/themes/fuzzyos
+      cp fuzzyos.plymouth fuzzyos.script logo.png dot.png \
+        $out/share/plymouth/themes/fuzzyos/
+    '';
+  };
+in
 {
   # ── Boot splash ──────────────────────────────────────────────────────
   boot.plymouth = {
     enable = true;
-    # TODO: create custom FuzzyOS plymouth theme
-    # theme = "fuzzyos";
-    # themePackages = [ fuzzyos-plymouth-theme ];
+    theme = "fuzzyos";
+    themePackages = [ fuzzyos-plymouth-theme ];
   };
 
   # ── GRUB branding ───────────────────────────────────────────────────

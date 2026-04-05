@@ -26,9 +26,14 @@
       "..." = "cd ../..";
     };
     initExtra = ''
-      # Fuzzy shell integration — AI-assisted command suggestions
-      # TODO: source fuzzy shell integration script once available
-      # eval "$(fuzzy shell-init zsh)"
+      # Fuzzy shell integration — Alt+F to launch fuzzy in current dir
+      fuzzy-inline() {
+        if command -v fuzzy &>/dev/null; then
+          fuzzy
+        fi
+      }
+      zle -N fuzzy-inline
+      bindkey '\ef' fuzzy-inline
     '';
   };
 
@@ -134,10 +139,12 @@
         size = 5
         passes = 2
       }
-      drop_shadow = true
-      shadow_range = 8
-      shadow_render_power = 2
-      col.shadow = rgba(1a1a1aee)
+      shadow {
+        enabled = true
+        range = 8
+        render_power = 2
+        color = rgba(1a1a1aee)
+      }
     }
 
     animations {
@@ -267,6 +274,9 @@
       border-radius: 6px;
     }
   '';
+
+  # ── Wallpaper ────────────────────────────────────────────────────────
+  xdg.configFile."hypr/wallpaper.png".source = ./branding/wallpaper.png;
 
   # ── Fuzzy config directory ───────────────────────────────────────────
   xdg.configFile."fuzzy/config.json".text = builtins.toJSON {
