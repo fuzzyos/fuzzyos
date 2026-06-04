@@ -1,0 +1,91 @@
+// FuzzyOS Plymouth Boot Script
+// Purple-themed boot splash with logo and progress spinner
+
+// ── Background ─────────────────────────────────────────────────────
+Window.SetBackgroundTopColor(0.098, 0.090, 0.149);    // #191724
+Window.SetBackgroundBottomColor(0.063, 0.059, 0.106);  // #100F1B
+
+// ── Logo ───────────────────────────────────────────────────────────
+logo.image = Image("logo.png");
+logo.sprite = Sprite(logo.image);
+logo.sprite.SetX(Window.GetX() + Window.GetWidth() / 2 - logo.image.GetWidth() / 2);
+logo.sprite.SetY(Window.GetY() + Window.GetHeight() / 2 - logo.image.GetHeight() / 2 - 40);
+logo.sprite.SetZ(10);
+
+// ── Spinner dots ───────────────────────────────────────────────────
+// 8 dots arranged in a circle, fading in sequence
+NUM_DOTS = 8;
+DOT_RADIUS = 24;
+
+for (i = 0; i < NUM_DOTS; i++) {
+    dots[i].image = Image("dot.png");
+    dots[i].sprite = Sprite(dots[i].image);
+    dots[i].sprite.SetZ(10);
+}
+
+progress = 0;
+
+fun animate_callback() {
+    progress++;
+
+    cx = Window.GetX() + Window.GetWidth() / 2;
+    cy = Window.GetY() + Window.GetHeight() / 2 + logo.image.GetHeight() / 2 + 20;
+
+    for (i = 0; i < NUM_DOTS; i++) {
+        angle = (i * 2 * 3.14159) / NUM_DOTS - (3.14159 / 2);
+        dx = Math.Int(cx + DOT_RADIUS * Math.Cos(angle) - dots[i].image.GetWidth() / 2);
+        dy = Math.Int(cy + DOT_RADIUS * Math.Sin(angle) - dots[i].image.GetHeight() / 2);
+        dots[i].sprite.SetX(dx);
+        dots[i].sprite.SetY(dy);
+
+        // Fade based on distance from active position
+        active = Math.Int(progress / 4) % NUM_DOTS;
+        dist = (i - active + NUM_DOTS) % NUM_DOTS;
+        if (dist == 0)
+            opacity = 1.0;
+        else if (dist == 1 || dist == NUM_DOTS - 1)
+            opacity = 0.6;
+        else if (dist == 2 || dist == NUM_DOTS - 2)
+            opacity = 0.3;
+        else
+            opacity = 0.15;
+
+        dots[i].sprite.SetOpacity(opacity);
+    }
+}
+
+Plymouth.SetRefreshFunction(animate_callback);
+
+// ── Password prompt ────────────────────────────────────────────────
+fun display_password_callback(prompt, bullets) {
+    msg.sprite = Sprite();
+    msg.image = Image.Text(prompt, 0.729, 0.333, 0.827);  // #ba55d3
+    msg.sprite = Sprite(msg.image);
+    msg.sprite.SetX(Window.GetX() + Window.GetWidth() / 2 - msg.image.GetWidth() / 2);
+    msg.sprite.SetY(Window.GetY() + Window.GetHeight() / 2 + 80);
+    msg.sprite.SetZ(11);
+
+    // Bullet string
+    bullet_str = "";
+    for (i = 0; i < bullets; i++)
+        bullet_str += "●  ";
+
+    bul.image = Image.Text(bullet_str, 0.878, 0.871, 0.957);  // #e0def4
+    bul.sprite = Sprite(bul.image);
+    bul.sprite.SetX(Window.GetX() + Window.GetWidth() / 2 - bul.image.GetWidth() / 2);
+    bul.sprite.SetY(Window.GetY() + Window.GetHeight() / 2 + 110);
+    bul.sprite.SetZ(11);
+}
+
+Plymouth.SetDisplayPasswordFunction(display_password_callback);
+
+// ── Messages ───────────────────────────────────────────────────────
+fun message_callback(text) {
+    txt.image = Image.Text(text, 0.878, 0.871, 0.957);  // #e0def4
+    txt.sprite = Sprite(txt.image);
+    txt.sprite.SetX(Window.GetX() + Window.GetWidth() / 2 - txt.image.GetWidth() / 2);
+    txt.sprite.SetY(Window.GetY() + Window.GetHeight() - 50);
+    txt.sprite.SetZ(11);
+}
+
+Plymouth.SetMessageFunction(message_callback);

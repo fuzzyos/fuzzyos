@@ -1,0 +1,58 @@
+{
+	"folders": [
+		{
+			"name": "fuzzyos",
+			"path": "."
+		},
+		{
+			"name": "fuzzy-ai",
+			"path": "packages/fuzzy-ai"
+		},
+		{
+			"name": "fuzzy-agent",
+			"path": "packages/fuzzy-agent"
+		},
+		{
+			"name": "fuzzy-code",
+			"path": "packages/fuzzy-code"
+		},
+		{
+			"name": "fuzzy-pods",
+			"path": "packages/fuzzy-pods"
+		},
+		{
+			"name": "fuzzy-tui",
+			"path": "packages/fuzzy-tui"
+		},
+		{
+			"name": "fuzzy-web-ui",
+			"path": "packages/fuzzy-web-ui"
+		},
+		{
+			"name": "fuzzy-code-vsce",
+			"path": "packages/fuzzy-code-vsce"
+		}
+	],
+	"settings": {
+		"editor.formatOnSave": false,
+		"editor.tabSize": 3,
+		"editor.insertSpaces": false,
+		"editor.rulers": [120],
+		"js/ts.tsdk.path": "node_modules/typescript/lib",
+		"search.exclude": {
+			"**/node_modules": true,
+			"**/dist": true,
+			"**/resources/fuzzy-code": true,
+			"packages/fuzzy-ai/src/models.generated.ts": true
+		},
+		"files.watcherExclude": {
+			"**/node_modules/**": true,
+			"**/dist/**": true
+		}
+	},
+	"extensions": {
+		"recommendations": [
+			"biomejs.biome"
+		]
+	}
+}

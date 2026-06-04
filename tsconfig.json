@@ -1,0 +1,27 @@
+{
+	"extends": "./tsconfig.base.json",
+	"compilerOptions": {
+		"noEmit": true,
+		"paths": {
+			"*": ["./*"],
+			"@fuzzyos/fuzzy-ai": ["./packages/fuzzy-ai/src/index.ts"],
+			"@fuzzyos/fuzzy-ai/oauth": ["./packages/fuzzy-ai/src/oauth.ts"],
+			"@fuzzyos/fuzzy-ai/bedrock-provider": ["./packages/fuzzy-ai/src/bedrock-provider.ts"],
+			"@fuzzyos/fuzzy-ai/*": ["./packages/fuzzy-ai/src/*"],
+			"@fuzzyos/fuzzy-ai/dist/*": ["./packages/fuzzy-ai/src/*"],
+			"@fuzzyos/fuzzy-agent": ["./packages/fuzzy-agent/src/index.ts"],
+			"@fuzzyos/fuzzy-agent/*": ["./packages/fuzzy-agent/src/*"],
+			"@fuzzyos/fuzzy-code": ["./packages/fuzzy-code/src/index.ts"],
+			"@fuzzyos/fuzzy-code/*": ["./packages/fuzzy-code/src/*"],
+			"@sinclair/typebox": ["./node_modules/@sinclair/typebox"],
+			"@fuzzyos/fuzzy": ["./packages/fuzzy-pods/src/index.ts"],
+			"@fuzzyos/fuzzy/*": ["./packages/fuzzy-pods/src/*"],
+			"@fuzzyos/fuzzy-tui": ["./packages/fuzzy-tui/src/index.ts"],
+			"@fuzzyos/fuzzy-tui/*": ["./packages/fuzzy-tui/src/*"],
+			"@fuzzyos/fuzzy-web-ui": ["./packages/fuzzy-web-ui/src/index.ts"],
+			"@fuzzyos/fuzzy-web-ui/*": ["./packages/fuzzy-web-ui/src/*"]
+		}
+	},
+	"include": ["packages/*/src/**/*", "packages/*/test/**/*", "packages/fuzzy-code/examples/**/*"],
+	"exclude": ["packages/fuzzy-web-ui/**/*", "packages/fuzzy-code-vsce/**/*", "**/dist/**"]
+}
