@@ -48,9 +48,7 @@ jobs:
         run: cd packages/fuzzy-web-ui/example && npm run build
 
       - name: Setup Pages
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
+        uses: actions/configure-pages@v6
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
