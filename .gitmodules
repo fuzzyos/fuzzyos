@@ -1,0 +1,27 @@
+[submodule "packages/fuzzy-ai"]
+	path = packages/fuzzy-ai
+	url = https://github.com/fuzzyos/fuzzy-ai.git
+
+[submodule "packages/fuzzy-agent"]
+	path = packages/fuzzy-agent
+	url = https://github.com/fuzzyos/fuzzy-agent.git
+
+[submodule "packages/fuzzy-code"]
+	path = packages/fuzzy-code
+	url = https://github.com/fuzzyos/fuzzy-code.git
+
+[submodule "packages/fuzzy-tui"]
+	path = packages/fuzzy-tui
+	url = https://github.com/fuzzyos/fuzzy-tui.git
+
+[submodule "packages/fuzzy-pods"]
+	path = packages/fuzzy-pods
+	url = https://github.com/fuzzyos/fuzzy-pods.git
+
+[submodule "packages/fuzzy-web-ui"]
+	path = packages/fuzzy-web-ui
+	url = https://github.com/fuzzyos/fuzzy-web-ui.git
+
+[submodule "packages/fuzzy-code-vsce"]
+	path = packages/fuzzy-code-vsce
+	url = https://github.com/fuzzyos/fuzzy-code-vsce.git

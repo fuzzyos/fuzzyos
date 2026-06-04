@@ -1,0 +1,36 @@
+# Default to LF for text files across the repo
+* text=auto eol=lf
+
+# Windows scripts should keep CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Shell scripts should keep LF
+*.sh text eol=lf
+
+# Common binary assets
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.gz binary
+*.woff binary
+*.woff2 binary
+
+# Always keep our files when merging from upstream
+CHANGELOG.md merge=ours
+.github/APPROVED_CONTRIBUTORS merge=ours
+.github/APPROVED_CONTRIBUTORS.vacation merge=ours
+
+# Always keep our submodule refs when merging from upstream
+packages/fuzzy-agent merge=ours
+packages/fuzzy-ai merge=ours
+packages/fuzzy-code merge=ours
+packages/fuzzy-pods merge=ours
+packages/fuzzy-tui merge=ours
+packages/fuzzy-web-ui merge=ours
