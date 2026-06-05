@@ -46,7 +46,7 @@
 	},
 	"version": "0.2.1",
 	"dependencies": {
-		"@fuzzyos/fuzzy-code": "0.4.0",
+		"@fuzzyos/fuzzy-code": "0.4.1",
 		"@fuzzyos/jiti": "^2.6.5",
 		"get-east-asian-width": "^1.4.0"
 	},
