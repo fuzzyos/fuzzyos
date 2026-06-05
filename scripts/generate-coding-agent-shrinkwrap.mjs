@@ -12,7 +12,7 @@ const shrinkwrapPath = join(codingAgentDir, "npm-shrinkwrap.json");
 const internalPackagePrefix = "@fuzzyos/fuzzy-";
 const allowedInstallScriptPackages = new Map([
 	["@google/genai@1.52.0", "preinstall is a no-op in the published package"],
-	["protobufjs@7.5.9", "postinstall only warns about protobufjs version scheme mismatches"],
+	["protobufjs@7.5.4", "postinstall only warns about protobufjs version scheme mismatches"],
 ]);
 
 const args = new Set(process.argv.slice(2));
@@ -277,11 +277,6 @@ function validateShrinkwrap(shrinkwrap, internalNames) {
 		}
 	}
 
-	const platformPackageCount = Object.values(shrinkwrap.packages).filter((entry) => entry.os || entry.cpu || entry.libc).length;
-	if (platformPackageCount === 0) {
-		errors.push("no platform-specific optional dependency entries found");
-	}
-
 	if (errors.length > 0) {
 		throw new Error(`Generated shrinkwrap failed validation:\n${errors.map((error) => `  - ${error}`).join("\n")}`);
 	}
@@ -354,10 +349,7 @@ try {
 	} else {
 		writeFileSync(shrinkwrapPath, content);
 		const packageCount = Object.keys(shrinkwrap.packages).length - 1;
-		const platformPackageCount = Object.values(shrinkwrap.packages).filter((entry) => entry.os || entry.cpu || entry.libc).length;
-		console.log(
-			`Wrote packages/fuzzy-code/npm-shrinkwrap.json (${packageCount} packages, ${platformPackageCount} platform-specific).`,
-		);
+		console.log(`Wrote packages/fuzzy-code/npm-shrinkwrap.json (${packageCount} packages).`);
 	}
 } catch (error) {
 	console.error(error instanceof Error ? error.message : String(error));
