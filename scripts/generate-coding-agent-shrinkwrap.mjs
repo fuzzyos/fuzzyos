@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(scriptDir, "..");
 const codingAgentDir = join(repoRoot, "packages/fuzzy-code");
+const codingAgentLockPath = codingAgentDir.slice(repoRoot.length + 1).replace(/\\/g, "/");
 const rootLockfilePath = join(repoRoot, "package-lock.json");
 const shrinkwrapPath = join(codingAgentDir, "npm-shrinkwrap.json");
 const internalPackagePrefix = "@fuzzyos/fuzzy-";
@@ -202,19 +203,41 @@ function addInternalWorkspace(shrinkwrapPackages, addedPaths, queue, name, works
 	addedPaths.add(outputPath);
 
 	for (const dependencyName of Object.keys(packageDependencies(packageJson))) {
-		queue.push({ name: dependencyName, from: outputPath });
+		queue.push({ name: dependencyName, from: workspace.lockPath });
 	}
 }
 
-function addExternalPackage(lockPackages, shrinkwrapPackages, addedPaths, queue, name, from) {
+function toShrinkwrapPath(lockPath, internalWorkspaces) {
+	if (lockPath === "" || lockPath.startsWith("node_modules/")) {
+		return lockPath;
+	}
+
+	const agentPrefix = codingAgentLockPath + "/";
+	if (lockPath.startsWith(agentPrefix)) {
+		return lockPath.slice(agentPrefix.length);
+	}
+
+	for (const [wsName, ws] of internalWorkspaces) {
+		const wsPrefix = ws.lockPath + "/";
+		if (lockPath.startsWith(wsPrefix)) {
+			return `node_modules/${wsName}/${lockPath.slice(wsPrefix.length)}`;
+		}
+	}
+
+	throw new Error(`Cannot map lockPath to shrinkwrap path: ${lockPath}`);
+}
+
+function addExternalPackage(lockPackages, shrinkwrapPackages, addedPaths, queue, name, from, internalWorkspaces) {
 	const lockPath = resolveExternalDependency(lockPackages, name, from);
-	if (addedPaths.has(lockPath)) {
+	const shrinkwrapPath = toShrinkwrapPath(lockPath, internalWorkspaces);
+
+	if (addedPaths.has(shrinkwrapPath)) {
 		return;
 	}
 
 	const entry = lockPackages[lockPath];
-	shrinkwrapPackages[lockPath] = copyLockEntry(entry);
-	addedPaths.add(lockPath);
+	shrinkwrapPackages[shrinkwrapPath] = copyLockEntry(entry);
+	addedPaths.add(shrinkwrapPath);
 
 	for (const dependencyName of Object.keys(packageDependencies(entry))) {
 		queue.push({ name: dependencyName, from: lockPath });
@@ -296,7 +319,7 @@ function generateShrinkwrap() {
 	};
 	const addedPaths = new Set([""]);
 	const internalNames = new Set();
-	const queue = Object.keys(packageDependencies(codingAgentPackage)).map((name) => ({ name, from: "" }));
+	const queue = Object.keys(packageDependencies(codingAgentPackage)).map((name) => ({ name, from: codingAgentLockPath }));
 
 	while (queue.length > 0) {
 		const item = queue.shift();
@@ -314,7 +337,7 @@ function generateShrinkwrap() {
 			continue;
 		}
 
-		addExternalPackage(lockPackages, shrinkwrapPackages, addedPaths, queue, item.name, item.from);
+		addExternalPackage(lockPackages, shrinkwrapPackages, addedPaths, queue, item.name, item.from, internalWorkspaces);
 	}
 
 	const shrinkwrap = {
